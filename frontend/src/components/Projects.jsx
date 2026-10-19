@@ -1,19 +1,99 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  HiArrowLeft,
+  HiArrowRight,
+  HiExternalLink,
+  HiOutlineSparkles,
+} from "react-icons/hi";
 import projects from "../data/projects";
-import { HiExternalLink, HiArrowRight, HiOutlineSparkles } from "react-icons/hi";
-import { FaGithub } from "react-icons/fa";
+import ProjectArtwork from "./ProjectArtwork";
+
+const wrapIndex = (index) => (index + projects.length) % projects.length;
 
 const Projects = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const dragRef = useRef(null);
+  const suppressClickRef = useRef(false);
+  const clickResetRef = useRef(0);
+
+  useEffect(
+    () => () => {
+      window.clearTimeout(clickResetRef.current);
+    },
+    [],
+  );
+
+  const showPrevious = () => setActiveIndex((index) => wrapIndex(index - 1));
+  const showNext = () => setActiveIndex((index) => wrapIndex(index + 1));
+
+  const handlePointerDown = (event) => {
+    if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) {
+      return;
+    }
+
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      moved: false,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    if (Math.abs(event.clientX - drag.startX) > 8) drag.moved = true;
+  };
+
+  const handlePointerUp = (event) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    const distance = event.clientX - drag.startX;
+    if (drag.moved && Math.abs(distance) > 44) {
+      suppressClickRef.current = true;
+      if (distance < 0) showNext();
+      else showPrevious();
+
+      window.clearTimeout(clickResetRef.current);
+      clickResetRef.current = window.setTimeout(() => {
+        suppressClickRef.current = false;
+      }, 500);
+    }
+
+    dragRef.current = null;
+  };
+
+  const handlePointerCancel = () => {
+    dragRef.current = null;
+  };
+
+  const handleClickCapture = (event) => {
+    if (!suppressClickRef.current) return;
+    event.preventDefault();
+    event.stopPropagation();
+    suppressClickRef.current = false;
+    window.clearTimeout(clickResetRef.current);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showPrevious();
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showNext();
+    }
+  };
+
   return (
-    <section
-      id="projects"
-      className="py-24 px-6 md:px-12 max-w-7xl mx-auto"
-    >
-      {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+    <section id="projects" className="projects-section py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-xs font-semibold uppercase tracking-wider">
           <HiOutlineSparkles className="text-blue-600 text-sm" />
-          <span>My Portfolio Projects</span>
+          <span>Selected work</span>
         </div>
 
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
@@ -21,117 +101,104 @@ const Projects = () => {
         </h2>
 
         <p className="text-base sm:text-lg text-gray-600">
-          Explore real-world web applications I built to solve practical problems, demonstrating clean code, modern UI/UX design, and responsive frontend architectures.
+          Explore each project in depth. Drag, swipe, or use the controls to move through the collection.
         </p>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className="group bg-white rounded-2xl border border-gray-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col overflow-hidden"
-          >
-            {/* Card Thumbnail / Image Container */}
-            <div className="relative aspect-video w-full overflow-hidden bg-gray-100 border-b border-gray-100">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              {project.category && (
-                <span className="absolute top-3 left-3 bg-gray-900/80 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-1 rounded-md shadow-xs">
-                  {project.category}
-                </span>
-              )}
-            </div>
+      <div
+        className="coverflow"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Portfolio projects. Use the arrow keys to change projects."
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+      >
+        <div
+          className="coverflow-stage"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
+          onClickCapture={handleClickCapture}
+        >
+          {projects.map((project, index) => {
+            const rawOffset = (index - activeIndex + projects.length) % projects.length;
+            const offset = rawOffset > Math.floor(projects.length / 2)
+              ? rawOffset - projects.length
+              : rawOffset;
+            const position = Math.max(-1, Math.min(1, offset));
 
-            {/* Card Body */}
-            <div className="p-6 flex flex-col flex-grow justify-between space-y-4">
-              <div className="space-y-2.5">
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                  {project.title}
-                </h3>
-
-                <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Tech Pills */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {project.technologies.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-0.5 text-xs font-medium rounded-md bg-blue-50 text-blue-700 border border-blue-100"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 4 && (
-                    <span className="px-2 py-0.5 text-xs font-medium rounded-md bg-gray-100 text-gray-600">
-                      +{project.technologies.length - 4}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Card Footer Actions */}
-              <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
-                <Link
-                  to={`/projects/${project.id}`}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-800 transition"
+            return (
+              <article
+                key={project.id}
+                className={`coverflow-slide coverflow-slide-${position}`}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} of ${projects.length}: ${project.title}`}
+                aria-current={index === activeIndex ? "true" : undefined}
+                style={{ "--slide-offset": position }}
+              >
+                <a
+                  className="coverflow-project-link"
+                  href={project.live}
+                  target="_blank"
+                  rel="noreferrer"
+                  draggable={false}
+                  aria-label={`Open ${project.title} live project`}
                 >
-                  <span>Details &amp; Tech</span>
-                  <HiArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />
-                </Link>
+                  <div className="coverflow-artwork">
+                    <ProjectArtwork title={project.title} image={project.image} />
+                    {project.featured && <span className="coverflow-featured">Featured</span>}
+                    <span className="coverflow-open">
+                      Open project <HiExternalLink aria-hidden="true" />
+                    </span>
+                  </div>
+                  <div className="coverflow-copy">
+                    <span className="coverflow-category">{project.category}</span>
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                  </div>
+                </a>
 
-                <div className="flex items-center gap-2">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="View Source Code on GitHub"
-                      className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition"
-                    >
-                      <FaGithub className="text-lg" />
-                    </a>
-                  )}
-
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="Open Live Demo"
-                      className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-                    >
-                      <span>Demo</span>
-                      <HiExternalLink className="text-sm" />
-                    </a>
-                  )}
+                <div className="coverflow-card-footer">
+                  <Link to={`/projects/${project.id}`} className="coverflow-details-link">
+                    Project details <HiArrowRight aria-hidden="true" />
+                  </Link>
+                  <span className="coverflow-count">
+                    {String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+                  </span>
                 </div>
-              </div>
-            </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="coverflow-controls">
+          <button type="button" onClick={showPrevious} aria-label="Previous project">
+            <HiArrowLeft aria-hidden="true" />
+          </button>
+          <div className="coverflow-pagination" aria-live="polite" aria-atomic="true">
+            <span>{String(activeIndex + 1).padStart(2, "0")}</span>
+            <span className="coverflow-pagination-rule" />
+            <span>{String(projects.length).padStart(2, "0")}</span>
           </div>
-        ))}
+          <button type="button" onClick={showNext} aria-label="Next project">
+            <HiArrowRight aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
-      {/* Bottom Github Note */}
-      <div className="mt-12 text-center">
-        <p className="text-sm text-gray-500">
-          Want to see more code and experiments? Check out my{" "}
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="font-semibold text-blue-600 hover:underline inline-flex items-center gap-1"
-          >
-            GitHub profile <HiExternalLink />
-          </a>
-        </p>
-      </div>
+      <p className="mt-10 text-center text-sm text-gray-500">
+        More code and experiments on{" "}
+        <a
+          href="https://github.com/nishattasnimtonni5-lang"
+          target="_blank"
+          rel="noreferrer"
+          className="font-semibold text-blue-600 hover:underline"
+        >
+          GitHub
+        </a>
+      </p>
     </section>
   );
 };

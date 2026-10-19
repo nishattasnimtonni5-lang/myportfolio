@@ -6,7 +6,7 @@ import {
   HiOutlineChatAlt2,
   HiOutlineCheckCircle,
 } from "react-icons/hi";
-import { FaGithub, FaLinkedin, FaTwitter, FaPaperPlane } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaPaperPlane } from "react-icons/fa";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -67,7 +67,7 @@ const Contact = () => {
         </h2>
 
         <p className="text-base sm:text-lg text-gray-600">
-          Have an entry-level opening, internship, freelance project, or simply want to chat about tech? My inbox is always open.
+          Have a junior full-stack opportunity, project idea, or simply want to chat about tech? My inbox is open.
         </p>
       </div>
 
@@ -79,13 +79,13 @@ const Contact = () => {
               Contact Information
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              I am actively looking for full-time junior frontend or full-stack opportunities and am available to join immediately.
+              I am open to junior full-stack developer opportunities and ready to grow with a collaborative team.
             </p>
 
             <div className="space-y-4 pt-2">
               {/* Email */}
               <a
-                href="mailto:youremail@example.com"
+                href="mailto:nishattasnimtonni5@gmail.com"
                 className="flex items-start gap-4 p-3.5 rounded-xl bg-gray-50 hover:bg-blue-50/70 border border-gray-100 hover:border-blue-200 transition group"
               >
                 <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -96,14 +96,14 @@ const Contact = () => {
                     Email Address
                   </span>
                   <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                    youremail@example.com
+                    nishattasnimtonni5@gmail.com
                   </span>
                 </div>
               </a>
 
               {/* Phone */}
               <a
-                href="tel:+8801700000000"
+                href="tel:+8801916001156"
                 className="flex items-start gap-4 p-3.5 rounded-xl bg-gray-50 hover:bg-blue-50/70 border border-gray-100 hover:border-blue-200 transition group"
               >
                 <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -114,7 +114,7 @@ const Contact = () => {
                     Phone / WhatsApp
                   </span>
                   <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                    +880 1700-000000
+                    01916001156
                   </span>
                 </div>
               </a>
@@ -129,7 +129,7 @@ const Contact = () => {
                     Location
                   </span>
                   <span className="text-sm font-semibold text-gray-900">
-                    Dhaka, Bangladesh (Remote / On-site)
+                    Dhaka, Bangladesh · Remote only
                   </span>
                 </div>
               </div>
@@ -142,7 +142,7 @@ const Contact = () => {
               </span>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://github.com/"
+                  href="https://github.com/nishattasnimtonni5-lang"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub Profile"
@@ -151,7 +151,7 @@ const Contact = () => {
                   <FaGithub className="text-lg" />
                 </a>
                 <a
-                  href="https://linkedin.com/"
+                  href="https://www.linkedin.com/in/nishat-tasnim-tonni-webdev043/"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn Profile"
@@ -160,13 +160,13 @@ const Contact = () => {
                   <FaLinkedin className="text-lg" />
                 </a>
                 <a
-                  href="https://twitter.com/"
+                  href="https://www.facebook.com/profile.php?id=61578195001063"
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="Twitter Profile"
-                  className="w-10 h-10 rounded-xl bg-gray-100 hover:bg-sky-500 hover:text-white flex items-center justify-center text-gray-700 transition"
+                  aria-label="Facebook Profile"
+                  className="w-10 h-10 rounded-xl bg-gray-100 hover:bg-blue-600 hover:text-white flex items-center justify-center text-gray-700 transition"
                 >
-                  <FaTwitter className="text-lg" />
+                  <FaFacebook className="text-lg" />
                 </a>
               </div>
             </div>
@@ -267,7 +267,7 @@ const Contact = () => {
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Hello! We are looking for a Junior Frontend Developer to join our team..."
+                  placeholder="Hello! We are looking for a Junior Full-Stack Developer to join our team..."
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50/50 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition resize-none"
                 ></textarea>

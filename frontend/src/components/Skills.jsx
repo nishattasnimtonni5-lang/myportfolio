@@ -15,6 +15,7 @@ import {
   SiMongodb,
   SiFirebase,
   SiVite,
+  SiNextdotjs,
   SiPostman,
   SiVercel,
 } from "react-icons/si";
@@ -37,6 +38,15 @@ const skillsData = [
     bg: "bg-cyan-50 border-cyan-100",
     level: "Proficient",
     description: "Hooks, Router, Context API, Component Lifecycle",
+  },
+  {
+    name: "Next.js",
+    category: "frontend",
+    icon: SiNextdotjs,
+    color: "text-gray-900",
+    bg: "bg-gray-50 border-gray-200",
+    level: "Familiar",
+    description: "App Router, layouts, routing, and server-rendered React applications",
   },
   {
     name: "JavaScript (ES6+)",
@@ -86,7 +96,7 @@ const skillsData = [
 
   // Backend & DB
   {
-    name: "Node.js (Basics)",
+    name: "Node.js",
     category: "backend",
     icon: FaNodeJs,
     color: "text-emerald-500",

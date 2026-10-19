@@ -9,62 +9,50 @@ import { FaGraduationCap, FaCertificate } from "react-icons/fa";
 
 const educationHistory = [
   {
-    degree: "B.Sc. in Computer Science & Engineering (CSE)",
-    institution: "Your University / College Name",
+    degree: "B.Sc. in Mathematics",
+    institution: "Dhaka Central University",
     location: "Dhaka, Bangladesh",
-    period: "2022 – 2026 (Expected)",
-    grade: "CGPA: 3.50+ / 4.00",
+    period: "2024 – 2028",
+    grade: "CGPA: 3.50 / 4.00",
     description:
-      "Gained comprehensive theoretical and practical knowledge in computational thinking, software engineering, and web technologies.",
+      "Studying mathematical theory and analytical methods, with a focus on core areas of pure and applied mathematics.",
     coursework: [
-      "Data Structures & Algorithms",
-      "Object-Oriented Programming (Java/C++)",
-      "Database Management Systems (DBMS)",
-      "Web Technologies & Engineering",
-      "Operating Systems & Computer Networks",
-      "Software Design Patterns",
+      "Linear Programming",
+      "Numerical Analysis",
+      "Real Analysis",
+      "Complex Analysis",
+      "Topology",
+      "Abstract Algebra",
+      "Advanced Calculus",
     ],
   },
   {
     degree: "Higher Secondary Certificate (HSC) – Science",
-    institution: "Your College Name",
-    location: "Dhaka, Bangladesh",
+    institution: "Paruara Abdul Matin Khasru College",
+    location: "Cumilla, Bangladesh",
     period: "2019 – 2021",
     grade: "GPA: 5.00 / 5.00 (A+)",
     description:
       "Completed higher secondary education with a major in Science, developing strong analytical thinking and mathematical problem-solving skills.",
-    coursework: ["Physics", "Chemistry", "Higher Mathematics", "Information & Communication Tech (ICT)"],
+    coursework: ["Physics", "Chemistry", "Biology", "Higher Mathematics", "ICT"],
   },
   {
     degree: "Secondary School Certificate (SSC) – Science",
-    institution: "Your High School Name",
-    location: "Dhaka, Bangladesh",
+    institution: "Cantonment Board Girls High School",
+    location: "Cumilla, Bangladesh",
     period: "2017 – 2019",
     grade: "GPA: 5.00 / 5.00 (A+)",
     description:
       "Graduated secondary school with distinction in Science, establishing foundational curiosity for science and computing.",
-    coursework: ["General Science", "Advanced Mathematics", "Computer Studies"],
+    coursework: ["General Science", "Advanced Mathematics", "ICT"],
   },
 ];
 
-const certifications = [
+const courses = [
   {
-    title: "Complete Web Development Bootcamp (MERN)",
-    issuer: "Online Learning Academy",
-    year: "2024",
-    desc: "Built 10+ real-world applications covering React, Tailwind CSS, Node.js, Express, and MongoDB.",
-  },
-  {
-    title: "Responsive Web Design Certification",
-    issuer: "freeCodeCamp",
-    year: "2023",
-    desc: "Verified competency in semantic HTML5, modern CSS Grid/Flexbox, and accessible web standards.",
-  },
-  {
-    title: "JavaScript Algorithms & Data Structures",
-    issuer: "freeCodeCamp",
-    year: "2024",
-    desc: "Mastery of ES6+, functional programming, OOP in JS, and algorithmic problem-solving.",
+    title: "AI-Driven Full Stack Web Engineering with Programming Hero",
+    year: "Batch 14",
+    desc: "Full-stack web engineering program.",
   },
 ];
 
@@ -124,9 +112,11 @@ const Education = () => {
                     </div>
                   </div>
 
-                  <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-3 py-1 rounded-full shrink-0">
-                    {edu.grade}
-                  </span>
+                  {edu.grade && (
+                    <span className="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-3 py-1 rounded-full shrink-0">
+                      {edu.grade}
+                    </span>
+                  )}
                 </div>
 
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
@@ -159,11 +149,11 @@ const Education = () => {
         <div className="lg:col-span-4 space-y-6">
           <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-4">
             <FaCertificate className="text-amber-500" />
-            <span>Certifications &amp; Courses</span>
+            <span>Courses</span>
           </h3>
 
           <div className="space-y-4">
-            {certifications.map((cert) => (
+            {courses.map((cert) => (
               <div
                 key={cert.title}
                 className="bg-white rounded-2xl border border-gray-200/80 p-5 shadow-xs hover:border-amber-200 hover:shadow-sm transition-all"
@@ -180,9 +170,11 @@ const Education = () => {
                 <h4 className="font-bold text-gray-900 text-sm mt-3">
                   {cert.title}
                 </h4>
-                <p className="text-xs font-semibold text-blue-600 mt-0.5">
-                  {cert.issuer}
-                </p>
+                {cert.issuer && (
+                  <p className="text-xs font-semibold text-blue-600 mt-0.5">
+                    {cert.issuer}
+                  </p>
+                )}
                 <p className="text-xs text-gray-500 mt-2 leading-relaxed">
                   {cert.desc}
                 </p>

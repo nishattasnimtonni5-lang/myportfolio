@@ -7,8 +7,8 @@ const navLinks = [
   { name: "About", id: "about" },
   { name: "Skills", id: "skills" },
   { name: "Projects", id: "projects" },
-  { name: "Experience", id: "experience" },
   { name: "Education", id: "education" },
+  { name: "Resume", id: "resume" },
   { name: "Contact", id: "contact" },
 ];
 
@@ -25,75 +25,99 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      if (!isHomePage) return;
+      if (!isHomePage) {
+        setActive(location.pathname === "/resume" ? "resume" : "");
+        return;
+      }
 
-      const sections = navLinks.map((link) =>
-        document.getElementById(link.id)
-      );
+      const activeSection = navLinks
+        .filter((link) => link.id !== "resume")
+        .map((link) => document.getElementById(link.id))
+        .filter(Boolean)
+        .find((section) => {
+          const bounds = section.getBoundingClientRect();
+          return bounds.top <= 140 && bounds.bottom > 140;
+        });
 
-      sections.forEach((section) => {
-        if (!section) return;
-
-        const top = section.offsetTop - 100;
-        const height = section.offsetHeight;
-
-        if (window.scrollY >= top && window.scrollY < top + height) {
-          setActive(section.id);
-        }
-      });
+      setActive(activeSection?.id ?? "home");
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHomePage]);
+    window.addEventListener("hashchange", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("hashchange", handleScroll);
+    };
+  }, [isHomePage, location.pathname]);
 
   const closeMenu = () => setMenuOpen(false);
+  const handleHomeClick = () => {
+    if (!isHomePage) return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.dispatchEvent(new Event("portfolio-intro:replay"));
+  };
 
   return (
     <header
       className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 print:hidden ${
         scrolled || !isHomePage
-          ? "bg-white/90 backdrop-blur-md shadow-md border-b border-gray-100"
-          : "bg-transparent"
+          ? "bg-slate-950/90 backdrop-blur-md shadow-md border-b border-slate-700/60"
+          : "bg-slate-950/45 backdrop-blur-sm border-b border-white/10"
       }`}
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between h-20 px-6">
         {/* Logo */}
         <Link
           to="/"
-          className="text-2xl font-extrabold tracking-tight text-gray-900 group flex items-center gap-2"
+          onClick={handleHomeClick}
+          className="text-2xl font-extrabold tracking-tight text-white group flex items-center gap-2"
         >
-          <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-mono text-lg shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">
-            D
+          <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-mono text-lg shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform">
+            N
           </span>
-          <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-blue-600 bg-clip-text text-transparent">
-            DevPortfolio<span className="text-blue-600">.</span>
+          <span className="bg-gradient-to-r from-white via-slate-100 to-cyan-300 bg-clip-text text-transparent">
+            Nishat Tasnim<span className="text-amber-400">.</span>
           </span>
         </Link>
 
         {/* Desktop Navigation Links */}
         <ul className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => {
-            const href = isHomePage ? `#${link.id}` : `/#${link.id}`;
-            const isLinkActive = isHomePage && active === link.id;
+            const href = link.id === "resume" ? "/resume" : isHomePage ? `#${link.id}` : `/#${link.id}`;
+            const isLinkActive = active === link.id;
 
             return (
               <li key={link.id}>
-                <a
-                  href={href}
-                  className={`relative py-1 font-medium text-sm transition-colors duration-200 ${
-                    isLinkActive
-                      ? "text-blue-600 font-semibold"
-                      : "text-gray-600 hover:text-blue-600"
-                  }`}
-                >
-                  {link.name}
-                  <span
-                    className={`absolute left-0 -bottom-1 h-0.5 bg-blue-600 transition-all duration-300 ${
-                      isLinkActive ? "w-full" : "w-0 group-hover:w-full"
+                {link.id === "resume" ? (
+                  <Link
+                    to="/resume"
+                    className={`group relative py-1 font-medium text-sm transition-colors duration-200 ${
+                      isLinkActive ? "text-cyan-300 font-semibold" : "text-slate-200 hover:text-cyan-300"
                     }`}
-                  ></span>
-                </a>
+                  >
+                    {link.name}
+                    <span className={`nav-underline absolute left-0 -bottom-1 h-0.5 bg-cyan-300 transition-all duration-300 ${
+                      isLinkActive ? "nav-underline-active w-full" : "w-0 group-hover:w-full"
+                    }`}></span>
+                  </Link>
+                ) : (
+                  <a
+                    href={href}
+                    className={`group relative py-1 font-medium text-sm transition-colors duration-200 ${
+                      isLinkActive
+                        ? "text-cyan-300 font-semibold"
+                        : "text-slate-200 hover:text-cyan-300"
+                    }`}
+                  >
+                    {link.name}
+                    <span
+                      className={`nav-underline absolute left-0 -bottom-1 h-0.5 bg-cyan-300 transition-all duration-300 ${
+                        isLinkActive ? "nav-underline-active w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    ></span>
+                  </a>
+                )}
               </li>
             );
           })}
@@ -103,7 +127,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-3">
           <Link
             to="/resume"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-500 hover:from-blue-500 hover:to-indigo-400 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-cyan-500/20 hover:shadow-lg hover:shadow-amber-400/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
           >
             <HiDocumentText className="text-lg" />
             Resume
@@ -114,7 +138,7 @@ const Navbar = () => {
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation menu"
-          className="md:hidden text-2xl text-gray-800 p-2 rounded-lg hover:bg-gray-100 transition focus:outline-none"
+          className="md:hidden text-2xl text-white p-2 rounded-lg hover:bg-slate-800 transition focus:outline-none"
         >
           {menuOpen ? <HiX /> : <HiMenuAlt3 />}
         </button>
@@ -122,26 +146,40 @@ const Navbar = () => {
 
       {/* Mobile Menu Drawer */}
       <div
-        className={`md:hidden bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-xl overflow-hidden transition-all duration-300 ${
-          menuOpen ? "max-h-96 py-6 px-6" : "max-h-0 py-0 px-6"
+        className={`md:hidden bg-slate-950/95 backdrop-blur-lg border-b border-slate-700 shadow-xl transition-all duration-300 ${
+          menuOpen
+            ? "max-h-[calc(100dvh_-_5rem)] overflow-y-auto overscroll-contain py-6 px-6"
+            : "max-h-0 overflow-hidden py-0 px-6"
         }`}
       >
         <ul className="flex flex-col gap-4">
           {navLinks.map((link) => {
-            const href = isHomePage ? `#${link.id}` : `/#${link.id}`;
-            const isLinkActive = isHomePage && active === link.id;
+            const href = link.id === "resume" ? "/resume" : isHomePage ? `#${link.id}` : `/#${link.id}`;
+            const isLinkActive = active === link.id;
 
             return (
               <li key={link.id}>
-                <a
-                  href={href}
-                  onClick={closeMenu}
-                  className={`block py-1.5 text-base font-medium transition ${
-                    isLinkActive ? "text-blue-600 font-semibold" : "text-gray-700 hover:text-blue-600"
-                  }`}
-                >
-                  {link.name}
-                </a>
+                {link.id === "resume" ? (
+                  <Link
+                    to="/resume"
+                    onClick={closeMenu}
+                    className={`relative block py-1.5 text-base font-medium transition text-slate-100 hover:text-cyan-300 ${isLinkActive ? "text-cyan-300 font-semibold" : ""}`}
+                  >
+                    {link.name}
+                    <span className={`nav-underline absolute left-0 -bottom-1 h-0.5 bg-cyan-300 transition-all duration-300 ${isLinkActive ? "nav-underline-active w-full" : "w-0"}`} />
+                  </Link>
+                ) : (
+                  <a
+                    href={href}
+                    onClick={closeMenu}
+                    className={`relative block py-1.5 text-base font-medium transition ${
+                      isLinkActive ? "text-cyan-300 font-semibold" : "text-slate-100 hover:text-cyan-300"
+                    }`}
+                  >
+                    {link.name}
+                    <span className={`nav-underline absolute left-0 -bottom-1 h-0.5 bg-cyan-300 transition-all duration-300 ${isLinkActive ? "nav-underline-active w-full" : "w-0"}`} />
+                  </a>
+                )}
               </li>
             );
           })}
@@ -151,7 +189,7 @@ const Navbar = () => {
             <Link
               to="/resume"
               onClick={closeMenu}
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-500 text-white py-3 rounded-xl font-semibold shadow hover:from-blue-500 hover:to-indigo-400 transition"
             >
               <HiDocumentText className="text-xl" />
               View Full Resume

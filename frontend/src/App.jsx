@@ -8,7 +8,8 @@ import Resume from './pages/Resume';
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col justify-between">
+      <div className="abyss-shell relative isolate min-h-screen bg-transparent text-gray-900 flex flex-col justify-between">
+        <div className="portfolio-backdrop" aria-hidden="true" />
         <Navbar />
         <div className="flex-grow">
           <Routes>

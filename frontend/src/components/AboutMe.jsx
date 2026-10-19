@@ -8,7 +8,7 @@ import {
   HiOutlineCheckCircle,
 } from "react-icons/hi";
 import { FaLaptopCode, FaRocket } from "react-icons/fa";
-import heroImg from "../assets/hero.png";
+import heroImg from "../assets/Pro.jpeg";
 
 const AboutMe = () => {
   const highlights = [
@@ -44,7 +44,7 @@ const AboutMe = () => {
         </h2>
 
         <p className="text-base sm:text-lg text-gray-600">
-          A glimpse into my journey, core values, and dedication as a passionate fresher web developer.
+          Mathematics student, curious problem-solver, and full-stack developer in progress.
         </p>
       </div>
 
@@ -56,16 +56,16 @@ const AboutMe = () => {
             <div className="w-24 h-24 bg-blue-500/10 rounded-full blur-2xl absolute -top-4 -right-4 -z-10"></div>
 
             <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 shrink-0">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 shrink-0">
                 <img
                   src={heroImg}
-                  alt="Developer graphic"
-                  className="w-10 h-10 object-contain brightness-200"
+                  alt="Nishat Tasnim Tonni"
+                  className="w-16 h-16 object-cover object-[center_20%] rounded-full"
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Your Name</h3>
-                <p className="text-sm font-medium text-blue-600">Fresher Web Developer</p>
+                <h3 className="text-xl font-bold text-gray-900">Nishat Tasnim Tonni</h3>
+                <p className="text-sm font-medium text-blue-600">Full-Stack Developer</p>
                 <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-1">
                   <HiOutlineLocationMarker className="text-gray-400" />
                   <span>Dhaka, Bangladesh</span>
@@ -87,7 +87,7 @@ const AboutMe = () => {
                 <span className="flex items-center gap-2 text-gray-500">
                   <FaLaptopCode className="text-blue-600" /> Primary Focus:
                 </span>
-                <span className="font-semibold text-gray-800">React &amp; Modern Frontend</span>
+                <span className="font-semibold text-gray-800">Next.js, Node.js &amp; MongoDB</span>
               </div>
               <div className="flex items-center justify-between py-1.5 border-b border-gray-50">
                 <span className="flex items-center gap-2 text-gray-500">
@@ -119,13 +119,16 @@ const AboutMe = () => {
         <div className="lg:col-span-7 space-y-6">
           <div className="space-y-4 text-gray-600 leading-relaxed text-base sm:text-lg">
             <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight leading-snug">
-              Turning complex design ideas into seamless, interactive web experiences.
+              From mathematical thinking to building useful things for the web.
             </h3>
             <p>
-              I am an aspiring and self-driven <strong>Fresher Web Developer</strong> with a solid academic foundation in Computer Science and an intense passion for modern frontend technologies. My journey began with experimenting with basic HTML &amp; CSS, which quickly evolved into building dynamic, full-fledged Single Page Applications with <strong>React.js</strong> and <strong>Tailwind CSS</strong>.
+              I am studying Mathematics at <strong>Dhaka Central University</strong>, where subjects like analysis and linear programming strengthen the way I approach complex problems. My programming journey grew through <strong>Programming Hero Batch 14</strong>, where I began turning my curiosity about the web into hands-on projects.
             </p>
             <p>
-              As a fresher, I bring raw enthusiasm, fresh perspective, and a relentless drive to master modern tools. I place high value on writing clean, accessible, and maintainable code. I am eager to contribute to collaborative engineering teams where I can learn from senior developers and deliver immediate value.
+              I am growing as a <strong>full-stack developer</strong> with <strong>Next.js</strong>, <strong>React</strong>, <strong>Node.js</strong>, and <strong>MongoDB</strong>. I especially enjoy taking an idea from a clear, responsive interface through to the backend logic that makes it work. I am curious, patient with tricky problems, and always ready to learn something new.
+            </p>
+            <p>
+              Away from the screen, I enjoy <strong>gardening, painting, and travelling</strong>. They give me a chance to slow down, notice details, and come back to coding with a fresh perspective.
             </p>
           </div>
 

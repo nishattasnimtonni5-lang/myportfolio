@@ -6,8 +6,12 @@ import {
   HiPhone,
   HiLocationMarker,
   HiExternalLink,
+  HiCode,
+  HiSparkles,
 } from "react-icons/hi";
-import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
+import { FaGithub, FaReact, FaJsSquare, FaNodeJs } from "react-icons/fa";
+import { SiNextdotjs, SiMongodb } from "react-icons/si";
+import projects from "../data/projects";
 
 const Resume = () => {
   const handlePrint = () => {
@@ -15,351 +19,207 @@ const Resume = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8 text-gray-800 font-sans print:bg-white print:py-0 print:px-0">
-      {/* Top Action Bar (Hidden during print) */}
-      <div className="max-w-4xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 print:hidden">
+    <div className="min-h-screen bg-slate-100 py-10 px-4 sm:px-6 lg:px-8 text-slate-800 font-sans print:bg-white print:py-0 print:px-0">
+      <div className="max-w-5xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 print:hidden">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 px-4 py-2.5 rounded-lg shadow-sm hover:bg-gray-50 hover:text-blue-600 transition"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 bg-white border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm hover:bg-slate-50 hover:text-blue-600 transition"
         >
           <HiArrowLeft className="text-base" /> Back to Portfolio
         </Link>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handlePrint}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-5 py-2.5 rounded-lg shadow-sm hover:shadow transition cursor-pointer"
-          >
-            <HiPrinter className="text-base" /> Print / Save as PDF
-          </button>
-        </div>
+        <button
+          onClick={handlePrint}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-5 py-2.5 rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition cursor-pointer"
+        >
+          <HiPrinter className="text-base" /> Print / Save PDF
+        </button>
       </div>
 
-      {/* Main Resume Sheet */}
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200/80 p-8 sm:p-12 print:shadow-none print:border-none print:p-0 print:rounded-none">
-        
-        {/* Header Section */}
-        <header className="border-b border-gray-200 pb-6 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-                Your Name
-              </h1>
-              <p className="text-lg font-semibold text-blue-600 mt-1">
-                Fresher Web Developer | Frontend & React Developer
-              </p>
-              <p className="text-sm text-gray-500 mt-1">
-                Passionate about building responsive, high-performance web applications with modern UI/UX.
-              </p>
+      <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-[0_25px_80px_rgba(15,23,42,0.12)] border border-slate-200 overflow-hidden print:shadow-none print:border-none print:rounded-none">
+        <header className="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-700 text-white">
+          <div className="p-8 sm:p-10 lg:p-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-200">Full-Stack Developer</p>
+                <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
+                  Nishat Tasnim Tonni
+                </h1>
+                <p className="mt-3 text-base sm:text-lg text-blue-100">
+                  Next.js • Node.js • MongoDB • React
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm px-4 py-3 min-w-[220px]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400/15 text-emerald-200 border border-emerald-300/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Open to Junior Full-Stack Roles
+                </span>
+                <p className="mt-3 text-sm text-blue-100">Available for remote opportunities only</p>
+              </div>
             </div>
 
-            {/* Quick Badges / Availability */}
-            <div className="flex flex-col items-start md:items-end gap-1 text-sm text-gray-600">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Open for Junior / Entry-Level Roles
-              </span>
-              <span className="text-xs text-gray-500 mt-1">Ready to join immediately</span>
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 text-sm text-blue-100">
+              <a href="mailto:nishattasnimtonni5@gmail.com" className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 hover:bg-white/10 transition">
+                <HiMail className="text-base text-blue-200" />
+                <span className="truncate">nishattasnimtonni5@gmail.com</span>
+              </a>
+              <a href="tel:+8801916001156" className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 hover:bg-white/10 transition">
+                <HiPhone className="text-base text-blue-200" />
+                <span>01916001156</span>
+              </a>
+              <div className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2">
+                <HiLocationMarker className="text-base text-blue-200" />
+                <span>Dhaka, Bangladesh</span>
+              </div>
+              <a href="https://github.com/nishattasnimtonni5-lang" target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 hover:bg-white/10 transition">
+                <FaGithub className="text-base text-blue-200" />
+                <span>GitHub Profile</span>
+              </a>
             </div>
-          </div>
-
-          {/* Contact Details Bar */}
-          <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs sm:text-sm text-gray-600 pt-4 border-t border-gray-100">
-            <a
-              href="mailto:youremail@example.com"
-              className="flex items-center gap-1.5 hover:text-blue-600 transition"
-            >
-              <HiMail className="text-blue-600 text-base shrink-0" />
-              <span className="truncate">youremail@example.com</span>
-            </a>
-            <a
-              href="tel:+8801700000000"
-              className="flex items-center gap-1.5 hover:text-blue-600 transition"
-            >
-              <HiPhone className="text-blue-600 text-base shrink-0" />
-              <span>+880 1700-000000</span>
-            </a>
-            <div className="flex items-center gap-1.5">
-              <HiLocationMarker className="text-blue-600 text-base shrink-0" />
-              <span>Dhaka, Bangladesh</span>
-            </div>
-            <a
-              href="https://github.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 hover:text-blue-600 transition"
-            >
-              <FaGithub className="text-gray-900 text-base shrink-0" />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="https://linkedin.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 hover:text-blue-600 transition"
-            >
-              <FaLinkedin className="text-blue-600 text-base shrink-0" />
-              <span>LinkedIn</span>
-            </a>
-            <a
-              href="/"
-              className="flex items-center gap-1.5 hover:text-blue-600 transition"
-            >
-              <FaGlobe className="text-blue-600 text-base shrink-0" />
-              <span>Portfolio</span>
-            </a>
           </div>
         </header>
 
-        {/* Section: Professional Summary */}
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider border-b border-gray-200 pb-1 mb-2.5 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-            Professional Summary
-          </h2>
-          <p className="text-sm text-gray-700 leading-relaxed text-justify">
-            Passionate, detail-oriented, and highly motivated <strong>Fresher Web Developer</strong> with strong foundational proficiency in <strong>JavaScript (ES6+)</strong>, <strong>React.js</strong>, <strong>Tailwind CSS</strong>, and modern component-driven front-end architectures. Dedicated to writing clean, maintainable, and accessible code to craft responsive and intuitive web interfaces. An agile learner and enthusiastic team player seeking an entry-level Junior Web Developer / Frontend Developer position to contribute to impactful software products while expanding full-stack skills.
-          </p>
-        </section>
-
-        {/* Section: Technical Skills */}
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider border-b border-gray-200 pb-1 mb-3 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-            Technical Skills
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-            <div className="p-3 bg-gray-50/80 rounded-lg border border-gray-100">
-              <span className="font-semibold text-gray-900 block mb-1">
-                Frontend Technologies:
-              </span>
-              <p className="text-gray-700 leading-relaxed text-xs sm:text-sm">
-                React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Bootstrap, React Router, Context API, Responsive Design.
-              </p>
+        <main className="p-8 sm:p-10 lg:p-12">
+          <section className="mb-8">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+              <h2 className="text-lg font-black uppercase tracking-[0.18em] text-slate-800">Professional Summary</h2>
             </div>
-
-            <div className="p-3 bg-gray-50/80 rounded-lg border border-gray-100">
-              <span className="font-semibold text-gray-900 block mb-1">
-                Backend &amp; Database (Foundational):
-              </span>
-              <p className="text-gray-700 leading-relaxed text-xs sm:text-sm">
-                Node.js (Basics), Express.js (Basics), RESTful APIs, JSON, MongoDB (CRUD), Firebase Authentication.
-              </p>
-            </div>
-
-            <div className="p-3 bg-gray-50/80 rounded-lg border border-gray-100">
-              <span className="font-semibold text-gray-900 block mb-1">
-                Developer Tools &amp; Workflow:
-              </span>
-              <p className="text-gray-700 leading-relaxed text-xs sm:text-sm">
-                Git, GitHub, VS Code, Vite, npm, Postman, Chrome DevTools, Vercel, Netlify.
-              </p>
-            </div>
-
-            <div className="p-3 bg-gray-50/80 rounded-lg border border-gray-100">
-              <span className="font-semibold text-gray-900 block mb-1">
-                Core Competencies &amp; Practices:
-              </span>
-              <p className="text-gray-700 leading-relaxed text-xs sm:text-sm">
-                Component-Driven Architecture, UI/UX Principles, Cross-Browser Compatibility, Performance Optimization, Problem Solving.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: Featured Projects */}
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider border-b border-gray-200 pb-1 mb-3.5 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-            Featured Projects
-          </h2>
-
-          <div className="space-y-4">
-            {/* Project 1 */}
-            <div className="border-l-2 border-blue-600 pl-4 py-0.5">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  Developer Portfolio &amp; Interactive Showcase
-                  <span className="text-xs font-normal text-blue-600 font-mono bg-blue-50 px-2 py-0.5 rounded">
-                    Personal Project
-                  </span>
-                </h3>
-                <div className="flex items-center gap-3 text-xs font-semibold text-blue-600">
-                  <a href="/" className="hover:underline flex items-center gap-1">
-                    Live View <HiExternalLink />
-                  </a>
-                  <span>•</span>
-                  <a href="https://github.com/" target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1">
-                    GitHub Code <HiExternalLink />
-                  </a>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 font-medium mt-0.5">
-                Tech Stack: React.js, Tailwind CSS, React Router, Vite
-              </p>
-              <ul className="mt-2 list-disc list-inside text-xs sm:text-sm text-gray-700 space-y-1">
-                <li>
-                  Designed and developed a fully responsive web application with active section scroll-spy and responsive mobile navigation.
-                </li>
-                <li>
-                  Built dynamic routing for individual project deep-dives and an ATS-friendly printable resume view with zero dependency bloat.
-                </li>
-                <li>
-                  Achieved high lighthouse performance scores through modern utility-first CSS and optimized asset bundling.
-                </li>
-              </ul>
-            </div>
-
-            {/* Project 2 */}
-            <div className="border-l-2 border-indigo-600 pl-4 py-0.5">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  TechGear - Modern E-Commerce Platform
-                  <span className="text-xs font-normal text-indigo-600 font-mono bg-indigo-50 px-2 py-0.5 rounded">
-                    Frontend &amp; State Project
-                  </span>
-                </h3>
-                <div className="flex items-center gap-3 text-xs font-semibold text-indigo-600">
-                  <a href="https://example.com" target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1">
-                    Live Demo <HiExternalLink />
-                  </a>
-                  <span>•</span>
-                  <a href="https://github.com/" target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1">
-                    GitHub Code <HiExternalLink />
-                  </a>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 font-medium mt-0.5">
-                Tech Stack: React.js, Tailwind CSS, Context API, REST API
-              </p>
-              <ul className="mt-2 list-disc list-inside text-xs sm:text-sm text-gray-700 space-y-1">
-                <li>
-                  Architected a complete online catalog with live search, dynamic category filtering, and real-time price slider.
-                </li>
-                <li>
-                  Engineered global cart state management with React Context and localStorage persistence for persistent shopping sessions.
-                </li>
-                <li>
-                  Designed a smooth slide-over cart drawer with instant quantity calculations and simulated checkout flow.
-                </li>
-              </ul>
-            </div>
-
-            {/* Project 3 */}
-            <div className="border-l-2 border-emerald-600 pl-4 py-0.5">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  TaskFlow - Agile Kanban Productivity App
-                  <span className="text-xs font-normal text-emerald-600 font-mono bg-emerald-50 px-2 py-0.5 rounded">
-                    Web Application
-                  </span>
-                </h3>
-                <div className="flex items-center gap-3 text-xs font-semibold text-emerald-600">
-                  <a href="https://example.com" target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1">
-                    Live Demo <HiExternalLink />
-                  </a>
-                  <span>•</span>
-                  <a href="https://github.com/" target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1">
-                    GitHub Code <HiExternalLink />
-                  </a>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 font-medium mt-0.5">
-                Tech Stack: React.js, Tailwind CSS, JavaScript (ES6+), LocalStorage
-              </p>
-              <ul className="mt-2 list-disc list-inside text-xs sm:text-sm text-gray-700 space-y-1">
-                <li>
-                  Created an interactive task management board with multi-column status tracking (Backlog, In Progress, Completed).
-                </li>
-                <li>
-                  Implemented custom priority flags, title/description validation, and instant search filter.
-                </li>
-                <li>
-                  Employed clean modular component structure with reusable modal and card subcomponents.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Section: Education */}
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider border-b border-gray-200 pb-1 mb-3 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-            Education
-          </h2>
-
-          <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm">
-              <div>
-                <h3 className="font-bold text-gray-900">
-                  B.Sc. in Computer Science &amp; Engineering (CSE)
-                </h3>
-                <p className="text-gray-600 text-xs sm:text-sm">
-                  Your University / College Name, City
-                </p>
-              </div>
-              <div className="text-xs sm:text-sm text-gray-500 font-medium mt-1 sm:mt-0 sm:text-right">
-                <span>Graduation Year: 2025 / 2026</span>
-                <span className="block text-blue-600 font-semibold">CGPA: 3.50+ / 4.00</span>
-              </div>
-            </div>
-            <p className="text-xs text-gray-600">
-              <strong className="font-semibold text-gray-700">Relevant Coursework:</strong> Data Structures &amp; Algorithms, Object-Oriented Programming, Database Management Systems, Web Engineering, Software Architecture.
+            <p className="text-sm sm:text-[15px] leading-7 text-slate-700">
+              Motivated <strong className="text-slate-900">full-stack developer</strong> building responsive web applications with <strong className="text-slate-900">Next.js</strong>, <strong className="text-slate-900">React</strong>, <strong className="text-slate-900">Node.js</strong>, and <strong className="text-slate-900">MongoDB</strong>. I value clear user flows, maintainable code, and learning how frontend and backend systems work together. I am eager to grow through collaborative, real-world projects.
             </p>
-          </div>
-        </section>
+          </section>
 
-        {/* Section: Certifications & Training */}
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider border-b border-gray-200 pb-1 mb-3 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-            Certifications &amp; Training
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-            <div className="p-3 bg-gray-50 rounded-lg border border-gray-100">
-              <h4 className="font-semibold text-gray-900">
-                Complete Web Development Bootcamp (MERN)
-              </h4>
-              <p className="text-xs text-gray-500 mt-0.5">Online Learning Academy (6-Month Intensive)</p>
-              <p className="text-xs text-gray-600 mt-1">
-                Completed 60+ assignments, built 10+ real-world web apps using React, Tailwind CSS, Node, and MongoDB.
-              </p>
+          <section className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+              <h2 className="text-lg font-black uppercase tracking-[0.18em] text-slate-800">Core Skills</h2>
             </div>
-
-            <div className="p-3 bg-gray-50 rounded-lg border border-gray-100">
-              <h4 className="font-semibold text-gray-900">
-                Responsive Web Design &amp; JavaScript Algorithms
-              </h4>
-              <p className="text-xs text-gray-500 mt-0.5">freeCodeCamp Certification</p>
-              <p className="text-xs text-gray-600 mt-1">
-                Demonstrated mastery in semantic HTML5, CSS Flexbox/Grid, and algorithmic JavaScript problem-solving.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
+                  <FaReact className="text-cyan-500" /> React.js
+                </div>
+                <p className="text-sm text-slate-600">Component-based architecture, reusable UI, state management, router integration.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
+                  <FaJsSquare className="text-yellow-500" /> JavaScript
+                </div>
+                <p className="text-sm text-slate-600">ES6+, DOM manipulation, async patterns, array/object logic, frontend logic.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
+                  <SiNextdotjs className="text-slate-900" /> Next.js
+                </div>
+                <p className="text-sm text-slate-600">React framework, App Router, layouts, and server-rendered pages.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
+                  <FaNodeJs className="text-emerald-600" /> Node.js
+                </div>
+                <p className="text-sm text-slate-600">Server-side JavaScript, APIs, and backend fundamentals.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
+                  <SiMongodb className="text-emerald-600" /> MongoDB
+                </div>
+                <p className="text-sm text-slate-600">Document databases, collections, and CRUD fundamentals.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
+                  <HiCode className="text-blue-600" /> HTML / CSS
+                </div>
+                <p className="text-sm text-slate-600">Semantic markup, layouts, responsive design, animations, accessible interfaces.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
+                  <HiSparkles className="text-indigo-600" /> Tailwind CSS
+                </div>
+                <p className="text-sm text-slate-600">Utility-first styling, responsive UIs, modern design systems, faster prototyping.</p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Section: Soft Skills & Languages */}
-        <section>
-          <h2 className="text-lg font-bold text-gray-900 uppercase tracking-wider border-b border-gray-200 pb-1 mb-3 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
-            Soft Skills &amp; Languages
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-gray-700">
+          <section className="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <span className="font-semibold text-gray-900 block mb-1">Soft Skills:</span>
-              <p>Problem Solving, Collaborative Teamwork, Fast Learner &amp; Adaptability, Time Management, Attention to Detail.</p>
-            </div>
-            <div>
-              <span className="font-semibold text-gray-900 block mb-1">Languages:</span>
-              <p>Bengali (Native), English (Professional Working Proficiency).</p>
-            </div>
-          </div>
-        </section>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                <h2 className="text-lg font-black uppercase tracking-[0.18em] text-slate-800">Education</h2>
+              </div>
 
+              <div className="space-y-3">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-sm font-bold text-slate-900">B.Sc. in Mathematics</p>
+                  <p className="text-sm text-blue-600 font-semibold mt-1">Dhaka Central University</p>
+                  <p className="mt-2 text-xs text-slate-500">2024 - 2028</p>
+                  <p className="mt-2 text-xs text-slate-500">CGPA: 3.50 / 4.00</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">Key studies: Linear Programming, Numerical Analysis, Real Analysis, Complex Analysis, Topology, Abstract Algebra, and Advanced Calculus.</p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-sm font-bold text-slate-900">Higher Secondary Certificate (HSC)</p>
+                  <p className="text-sm text-blue-600 font-semibold mt-1">Paruara Abdul Matin Khasru College</p>
+                  <p className="mt-2 text-xs text-slate-500">2019 - 2021 • Cumilla, Bangladesh • GPA: 5.00 / 5.00 (A+)</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">Key studies: Physics, Chemistry, Biology, Higher Mathematics, and ICT.</p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-sm font-bold text-slate-900">Secondary School Certificate (SSC)</p>
+                  <p className="text-sm text-blue-600 font-semibold mt-1">Cantonment Board Girls High School</p>
+                  <p className="mt-2 text-xs text-slate-500">2017 - 2019 • Cumilla, Bangladesh • GPA: 5.00 / 5.00 (A+)</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">Key studies: General Science, Advanced Mathematics, and ICT.</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                <h2 className="text-lg font-black uppercase tracking-[0.18em] text-slate-800">Certifications</h2>
+              </div>
+
+              <div className="rounded-2xl border border-slate-200 bg-emerald-50 p-4">
+                <p className="font-semibold text-slate-900">AI-Driven Full Stack Web Engineering with Programming Hero</p>
+                <p className="text-xs text-slate-600 mt-1">Batch 14</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2.5 h-2.5 rounded-full bg-violet-600"></span>
+              <h2 className="text-lg font-black uppercase tracking-[0.18em] text-slate-800">Featured Projects</h2>
+            </div>
+
+            <div className="space-y-4">
+              {projects.map((project) => (
+                <div key={project.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <h3 className="text-base font-bold text-slate-900">{project.title}</h3>
+                    <a href={project.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 hover:underline">
+                      Live project <HiExternalLink />
+                    </a>
+                  </div>
+                  <p className="mt-2 text-sm text-slate-600">{project.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+                <h2 className="text-lg font-black uppercase tracking-[0.18em] text-slate-800">Strengths</h2>
+              </div>
+              <div className="space-y-3 text-sm text-slate-700">
+                <div className="rounded-2xl border border-slate-200 bg-pink-50 p-4">Fast learner and adaptable to new tools</div>
+                <div className="rounded-2xl border border-slate-200 bg-violet-50 p-4">Strong problem-solving and debugging mindset</div>
+                <div className="rounded-2xl border border-slate-200 bg-emerald-50 p-4">Good communication and team collaboration</div>
+              </div>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
   );

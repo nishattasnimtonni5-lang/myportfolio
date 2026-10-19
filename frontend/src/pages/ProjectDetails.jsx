@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import projects from "../data/projects";
 import { HiArrowLeft, HiExternalLink, HiCode, HiLightBulb, HiShieldCheck } from "react-icons/hi";
 import { FaGithub } from "react-icons/fa";
+import ProjectArtwork from "../components/ProjectArtwork";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const ProjectDetails = () => {
   }
 
   return (
-    <main className="min-h-screen pt-28 pb-20 bg-gray-50/60 text-gray-800">
+    <main className="abyss-project-details min-h-screen pt-28 pb-20 bg-gray-50/60 text-gray-800">
       <div className="max-w-4xl mx-auto px-6">
         {/* Navigation Breadcrumb */}
         <div className="mb-6">
@@ -42,13 +43,8 @@ const ProjectDetails = () => {
         {/* Project Card */}
         <div className="bg-white rounded-2xl border border-gray-200/90 shadow-sm overflow-hidden p-6 sm:p-10 space-y-8">
           
-          {/* Main Screenshot */}
-          <div className="rounded-xl overflow-hidden border border-gray-200/80 shadow-md aspect-video bg-gray-100">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover object-top"
-            />
+          <div className="rounded-xl overflow-hidden border border-gray-200/80 shadow-md aspect-video">
+            <ProjectArtwork title={project.title} image={project.image} />
           </div>
 
           {/* Title & Category */}
@@ -64,7 +60,7 @@ const ProjectDetails = () => {
           </div>
 
           {/* Tech Stack Pills */}
-          <div>
+          {project.technologies?.length > 0 && <div>
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
               <HiCode className="text-blue-600 text-base" /> Technologies Used
             </h3>
@@ -78,7 +74,7 @@ const ProjectDetails = () => {
                 </span>
               ))}
             </div>
-          </div>
+          </div>}
 
           {/* Description */}
           <div className="space-y-2">
@@ -89,7 +85,7 @@ const ProjectDetails = () => {
           </div>
 
           {/* Challenges & Solutions */}
-          {project.challenges && project.challenges.length > 0 && (
+          {project.challenges?.length > 0 && (
             <div className="space-y-3 p-5 rounded-xl bg-gray-50 border border-gray-100">
               <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
                 <HiShieldCheck className="text-emerald-600 text-lg" />
@@ -104,7 +100,7 @@ const ProjectDetails = () => {
           )}
 
           {/* Future Enhancements */}
-          {project.future && project.future.length > 0 && (
+          {project.future?.length > 0 && (
             <div className="space-y-3 p-5 rounded-xl bg-blue-50/50 border border-blue-100">
               <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
                 <HiLightBulb className="text-amber-500 text-lg" />
