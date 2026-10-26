@@ -64,9 +64,9 @@ const Resume = () => {
                 <HiMail className="text-base text-blue-200" />
                 <span className="truncate">nishattasnimtonni5@gmail.com</span>
               </a>
-              <a href="tel:+8801916001156" className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 hover:bg-white/10 transition">
+              <a href="" className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 hover:bg-white/10 transition">
                 <HiPhone className="text-base text-blue-200" />
-                <span>01916001156</span>
+                <span></span>
               </a>
               <div className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2">
                 <HiLocationMarker className="text-base text-blue-200" />
