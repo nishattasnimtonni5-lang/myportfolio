@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   HiArrowLeft,
-  HiPrinter,
+  HiDocumentDownload,
   HiMail,
   HiPhone,
   HiLocationMarker,
@@ -13,10 +14,28 @@ import { FaGithub, FaReact, FaJsSquare, FaNodeJs } from "react-icons/fa";
 import { SiNextdotjs, SiMongodb } from "react-icons/si";
 import projects from "../data/projects";
 
+// Browser print dialog → "Save as PDF".
+// document.title is swapped first so the downloaded file is named
+// "Nishat-Tasnim-Tonni-Resume.pdf" instead of the site title.
+const printResumeAsPdf = () => {
+  const previousTitle = document.title;
+  document.title = "Nishat-Tasnim-Tonni-Resume";
+  window.print();
+  window.setTimeout(() => {
+    document.title = previousTitle;
+  }, 1500);
+};
+
 const Resume = () => {
-  const handlePrint = () => {
-    window.print();
-  };
+  const location = useLocation();
+  const handleDownload = printResumeAsPdf;
+
+  // /resume?download=1 (Hero "Download PDF" button) → auto-open save-as-PDF dialog
+  useEffect(() => {
+    if (new URLSearchParams(location.search).get("download") !== "1") return undefined;
+    const timer = window.setTimeout(printResumeAsPdf, 900);
+    return () => window.clearTimeout(timer);
+  }, [location.search]);
 
   return (
     <div className="min-h-screen bg-slate-100 py-10 px-4 sm:px-6 lg:px-8 text-slate-800 font-sans print:bg-white print:py-0 print:px-0">
@@ -29,10 +48,11 @@ const Resume = () => {
         </Link>
 
         <button
-          onClick={handlePrint}
+          onClick={handleDownload}
+          title="Download this resume as a PDF"
           className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-5 py-2.5 rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition cursor-pointer"
         >
-          <HiPrinter className="text-base" /> Print / Save PDF
+          <HiDocumentDownload className="text-base" /> Download PDF
         </button>
       </div>
 
@@ -52,8 +72,8 @@ const Resume = () => {
 
               <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm px-4 py-3 min-w-[220px]">
                 <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400/15 text-emerald-200 border border-emerald-300/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Open to Junior Full-Stack Roles
+                  <span className="green-signal-dot"></span>
+                  Open to Internship &amp; Junior Full-Stack Roles
                 </span>
                 <p className="mt-3 text-sm text-blue-100">Available for remote opportunities only</p>
               </div>
@@ -97,43 +117,43 @@ const Resume = () => {
               <h2 className="text-lg font-black uppercase tracking-[0.18em] text-slate-800">Core Skills</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 print:break-inside-avoid">
                 <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
                   <FaReact className="text-cyan-500" /> React.js
                 </div>
                 <p className="text-sm text-slate-600">Component-based architecture, reusable UI, state management, router integration.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 print:break-inside-avoid">
                 <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
                   <FaJsSquare className="text-yellow-500" /> JavaScript
                 </div>
                 <p className="text-sm text-slate-600">ES6+, DOM manipulation, async patterns, array/object logic, frontend logic.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 print:break-inside-avoid">
                 <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
                   <SiNextdotjs className="text-slate-900" /> Next.js
                 </div>
                 <p className="text-sm text-slate-600">React framework, App Router, layouts, and server-rendered pages.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 print:break-inside-avoid">
                 <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
                   <FaNodeJs className="text-emerald-600" /> Node.js
                 </div>
                 <p className="text-sm text-slate-600">Server-side JavaScript, APIs, and backend fundamentals.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 print:break-inside-avoid">
                 <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
                   <SiMongodb className="text-emerald-600" /> MongoDB
                 </div>
                 <p className="text-sm text-slate-600">Document databases, collections, and CRUD fundamentals.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 print:break-inside-avoid">
                 <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
                   <HiCode className="text-blue-600" /> HTML / CSS
                 </div>
                 <p className="text-sm text-slate-600">Semantic markup, layouts, responsive design, animations, accessible interfaces.</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 print:break-inside-avoid">
                 <div className="flex items-center gap-2 font-semibold text-slate-900 mb-2">
                   <HiSparkles className="text-indigo-600" /> Tailwind CSS
                 </div>
@@ -150,20 +170,20 @@ const Resume = () => {
               </div>
 
               <div className="space-y-3">
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:break-inside-avoid">
                   <p className="text-sm font-bold text-slate-900">B.Sc. in Mathematics</p>
                   <p className="text-sm text-blue-600 font-semibold mt-1">Dhaka Central University</p>
-                  <p className="mt-2 text-xs text-slate-500">2024 - 2028</p>
+                  <p className="mt-2 text-xs text-slate-500">2023 - 2027</p>
                   <p className="mt-2 text-xs text-slate-500">CGPA: 3.50 / 4.00</p>
                   <p className="mt-3 text-sm leading-6 text-slate-600">Key studies: Linear Programming, Numerical Analysis, Real Analysis, Complex Analysis, Topology, Abstract Algebra, and Advanced Calculus.</p>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:break-inside-avoid">
                   <p className="text-sm font-bold text-slate-900">Higher Secondary Certificate (HSC)</p>
                   <p className="text-sm text-blue-600 font-semibold mt-1">Paruara Abdul Matin Khasru College</p>
                   <p className="mt-2 text-xs text-slate-500">2019 - 2021 • Cumilla, Bangladesh • GPA: 5.00 / 5.00 (A+)</p>
                   <p className="mt-3 text-sm leading-6 text-slate-600">Key studies: Physics, Chemistry, Biology, Higher Mathematics, and ICT.</p>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:break-inside-avoid">
                   <p className="text-sm font-bold text-slate-900">Secondary School Certificate (SSC)</p>
                   <p className="text-sm text-blue-600 font-semibold mt-1">Cantonment Board Girls High School</p>
                   <p className="mt-2 text-xs text-slate-500">2017 - 2019 • Cumilla, Bangladesh • GPA: 5.00 / 5.00 (A+)</p>
@@ -193,7 +213,7 @@ const Resume = () => {
 
             <div className="space-y-4">
               {projects.map((project) => (
-                <div key={project.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <div key={project.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 print:break-inside-avoid">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <h3 className="text-base font-bold text-slate-900">{project.title}</h3>
                     <a href={project.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 hover:underline">

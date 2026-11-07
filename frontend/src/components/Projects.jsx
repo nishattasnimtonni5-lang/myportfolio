@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   HiArrowLeft,
   HiArrowRight,
-  HiExternalLink,
   HiOutlineSparkles,
 } from "react-icons/hi";
 import projects from "../data/projects";
@@ -16,6 +15,12 @@ const Projects = () => {
   const dragRef = useRef(null);
   const suppressClickRef = useRef(false);
   const clickResetRef = useRef(0);
+
+  // Pointer travel (px) before we treat it as a drag instead of a click.
+  // Kept high enough that normal trackpad/mouse jitter while clicking never
+  // captures the pointer or swallows the card-link navigation.
+  const DRAG_START_THRESHOLD = 16;
+  const FLICK_THRESHOLD = 44;
 
   useEffect(
     () => () => {
@@ -32,18 +37,34 @@ const Projects = () => {
       return;
     }
 
+    // NOTE: pointer capture is deliberately NOT taken here. Capturing on
+    // pointerdown makes browsers retarget the click to the stage div, which
+    // breaks the card <Link> navigation. Capture only starts once the pointer
+    // actually drags (see handlePointerMove).
     dragRef.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
       moved: false,
+      captured: false,
     };
-    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const handlePointerMove = (event) => {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
-    if (Math.abs(event.clientX - drag.startX) > 8) drag.moved = true;
+    if (Math.abs(event.clientX - drag.startX) <= 8) return;
+
+    if (Math.abs(event.clientX - drag.startX) <= DRAG_START_THRESHOLD) return;
+
+    drag.moved = true;
+    if (!drag.captured) {
+      drag.captured = true;
+      try {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      } catch {
+        // Capture can fail if the pointer already ended — drag still works.
+      }
+    }
   };
 
   const handlePointerUp = (event) => {
@@ -51,10 +72,14 @@ const Projects = () => {
     if (!drag || drag.pointerId !== event.pointerId) return;
 
     const distance = event.clientX - drag.startX;
-    if (drag.moved && Math.abs(distance) > 44) {
+    // A real drag (past the threshold at any point) must not trigger the
+    // card link on release; a jittery click navigates to the project page.
+    if (drag.moved || Math.abs(distance) > DRAG_START_THRESHOLD) {
       suppressClickRef.current = true;
-      if (distance < 0) showNext();
-      else showPrevious();
+      if (Math.abs(distance) > FLICK_THRESHOLD) {
+        if (distance < 0) showNext();
+        else showPrevious();
+      }
 
       window.clearTimeout(clickResetRef.current);
       clickResetRef.current = window.setTimeout(() => {
@@ -138,19 +163,17 @@ const Projects = () => {
                 aria-current={index === activeIndex ? "true" : undefined}
                 style={{ "--slide-offset": position }}
               >
-                <a
+                <Link
                   className="coverflow-project-link"
-                  href={project.live}
-                  target="_blank"
-                  rel="noreferrer"
+                  to={`/projects/${project.id}`}
                   draggable={false}
-                  aria-label={`Open ${project.title} live project`}
+                  aria-label={`View details of ${project.title}`}
                 >
                   <div className="coverflow-artwork">
                     <ProjectArtwork title={project.title} image={project.image} />
                     {project.featured && <span className="coverflow-featured">Featured</span>}
                     <span className="coverflow-open">
-                      Open project <HiExternalLink aria-hidden="true" />
+                      View details <HiArrowRight aria-hidden="true" />
                     </span>
                   </div>
                   <div className="coverflow-copy">
@@ -158,7 +181,7 @@ const Projects = () => {
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
                   </div>
-                </a>
+                </Link>
 
                 <div className="coverflow-card-footer">
                   <Link to={`/projects/${project.id}`} className="coverflow-details-link">

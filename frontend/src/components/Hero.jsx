@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { HiDocumentText, HiArrowRight } from "react-icons/hi";
+import { HiDocumentText, HiDocumentDownload, HiArrowRight } from "react-icons/hi";
 import profilePhoto from "../assets/Pro.jpeg";
 
 const LightBulb = ({ className, svgRef }) => (
@@ -244,20 +244,35 @@ const Hero = () => {
       <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
       <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left Column: Introductions & CTAs */}
-        <div className="hero-enter hero-copy lg:col-span-7 text-left">
-          <p className="abyss-kicker">Into the digital abyss <span>— 01 / Creative developer</span></p>
-          <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight">
-            Nishat Tasnim Tonn<span className="final-i-letter hero-final-i" aria-hidden="true">ı<span className="final-i-dot" /></span><span className="sr-only">i</span>
-          </h1>
-          <h2 className="hero-role text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 tracking-tight leading-tight">
-            Full-Stack Developer
-          </h2>
+      <div className="w-full">
+        <div className="hero-enter hero-copy text-left">
+          <div className="hero-identity flex flex-col gap-6 md:flex-row md:items-center md:gap-6 lg:gap-8">
+            <div className="hero-identity-copy">
+              <p className="abyss-kicker">Into the digital abyss <span>— 01 / Creative developer</span></p>
+              <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight">
+                Nishat Tasnim Tonn<span className="final-i-letter hero-final-i" aria-hidden="true">ı<span className="final-i-dot" /></span><span className="sr-only">i</span>
+              </h1>
+              <h2 className="hero-role text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 tracking-tight leading-tight">
+                Full-Stack Developer
+              </h2>
+            </div>
+
+            <div className="hero-portrait-frame relative mx-auto aspect-square w-full max-w-[350px] mt-20  shrink-0 md:mx-0 md:w-60 lg:w-44 xl:w-60 ">
+              <div className="hero-portrait-halo absolute inset-[5%] rounded-full" />
+              <div className="hero-portrait-ring absolute inset-[30%] rounded-full" />
+              <div className="hero-portrait-image absolute inset-[0] overflow-hidden rounded-full">
+                <img
+                  src={profilePhoto}
+                  alt="Nishat Tasnim Tonni"
+                  className="h-full w-full  object-cover object-[center_20%]"
+                />
+              </div>
+            </div>
+          </div>
 
           <div className="hero-availability">
             <span className="hero-availability-indicator" />
-            <span>Open to remote junior full-stack opportunities</span>
+            <span>Open to remote internship &amp; junior full-stack opportunities</span>
           </div>
 
           <p className="hero-description text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed">
@@ -275,6 +290,15 @@ const Hero = () => {
               <HiDocumentText aria-hidden="true" /> Resume
             </Link>
             <a
+              href="/resume?download=1"
+              target="_blank"
+              rel="noreferrer"
+              className="hero-download-action"
+              title="Download my resume as a PDF"
+            >
+              <HiDocumentDownload aria-hidden="true" /> Download Resume
+            </a>
+            <a
               href="#contact"
               className="hero-contact-action"
             >
@@ -287,20 +311,6 @@ const Hero = () => {
             <span>React</span>
             <span>Node.js</span>
             <span>MongoDB</span>
-          </div>
-        </div>
-
-        <div className="hero-enter hero-enter-later lg:col-span-5">
-          <div className="hero-portrait-frame relative mx-auto aspect-square w-full max-w-[390px]">
-            <div className="hero-portrait-halo absolute inset-[5%] rounded-full" />
-            <div className="hero-portrait-ring absolute inset-[10%] rounded-full" />
-            <div className="hero-portrait-image absolute inset-[14%] overflow-hidden rounded-full">
-              <img
-                src={profilePhoto}
-                alt="Nishat Tasnim Tonni"
-                className="h-full w-full object-cover object-[center_20%]"
-              />
-            </div>
           </div>
         </div>
       </div>

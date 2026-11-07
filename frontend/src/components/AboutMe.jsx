@@ -8,6 +8,7 @@ import {
   HiOutlineCheckCircle,
 } from "react-icons/hi";
 import { FaLaptopCode, FaRocket } from "react-icons/fa";
+import CountUp from "./CountUp";
 import heroImg from "../assets/Pro.jpeg";
 
 const AboutMe = () => {
@@ -93,22 +94,34 @@ const AboutMe = () => {
                 <span className="flex items-center gap-2 text-gray-500">
                   <HiOutlineMail className="text-blue-600" /> Communication:
                 </span>
-                <span className="font-semibold text-gray-800">English &amp; Bengali</span>
+                <span className="font-semibold text-gray-800">English, Bengali, Hindi &amp; Urdu</span>
               </div>
             </div>
 
-            {/* Micro Stats */}
+            {/* Micro Stats (count up from 0 when scrolled into view) */}
             <div className="grid grid-cols-3 gap-3 pt-6 mt-6 border-t border-gray-100 text-center">
               <div className="p-2.5 bg-gray-50 rounded-xl">
-                <span className="block text-2xl font-black text-blue-600">3+</span>
+                <CountUp
+                  value={3}
+                  suffix="+"
+                  className="block text-2xl font-black text-blue-600"
+                />
                 <span className="text-[11px] text-gray-500 font-medium">Demo Projects</span>
               </div>
               <div className="p-2.5 bg-gray-50 rounded-xl">
-                <span className="block text-2xl font-black text-indigo-600">500+</span>
+                <CountUp
+                  value={500}
+                  suffix="+"
+                  className="block text-2xl font-black text-indigo-600"
+                />
                 <span className="text-[11px] text-gray-500 font-medium">Coding Hours</span>
               </div>
               <div className="p-2.5 bg-gray-50 rounded-xl">
-                <span className="block text-2xl font-black text-emerald-600">100%</span>
+                <CountUp
+                  value={100}
+                  suffix="%"
+                  className="block text-2xl font-black text-emerald-600"
+                />
                 <span className="text-[11px] text-gray-500 font-medium">Commitment</span>
               </div>
             </div>

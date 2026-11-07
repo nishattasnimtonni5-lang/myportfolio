@@ -12,7 +12,7 @@ const educationHistory = [
     degree: "B.Sc. in Mathematics",
     institution: "Dhaka Central University",
     location: "Dhaka, Bangladesh",
-    period: "2024 – 2028",
+    period: "2023 – 2027",
     grade: "CGPA: 3.50 / 4.00",
     description:
       "Studying mathematical theory and analytical methods, with a focus on core areas of pure and applied mathematics.",

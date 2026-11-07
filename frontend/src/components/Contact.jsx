@@ -1,25 +1,28 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import {
   HiOutlineMail,
   HiOutlinePhone,
   HiOutlineLocationMarker,
   HiOutlineChatAlt2,
   HiOutlineCheckCircle,
+  HiX,
 } from "react-icons/hi";
 import { FaGithub, FaLinkedin, FaFacebook, FaPaperPlane } from "react-icons/fa";
 
+// Messages posted here are forwarded to this inbox (FormSubmit, free & keyless).
+const CONTACT_EMAIL = "nishattasnimtonni5@gmail.com";
+
+const emptyForm = { name: "", email: "", subject: "", message: "" };
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
 
   const [status, setStatus] = useState({
     submitting: false,
     submitted: false,
     error: null,
+    channel: null, // "inbox" (delivered) | "email-app" (visitor presses Send)
   });
 
   const handleChange = (e) => {
@@ -27,7 +30,7 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
@@ -35,26 +38,96 @@ const Contact = () => {
         submitting: false,
         submitted: false,
         error: "Please fill in all required fields.",
+        channel: null,
       });
       return;
     }
 
-    setStatus({ submitting: true, submitted: false, error: null });
+    setStatus({ submitting: true, submitted: false, error: null, channel: null });
 
-    // Simulate sending message
-    setTimeout(() => {
-      setStatus({ submitting: false, submitted: true, error: null });
-      setFormData({ name: "", email: "", subject: "", message: "" });
+    // Never hang on "Sending Message..." — bail out to the mail-app fallback.
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 9000);
 
-      // Auto-hide success message after 6 seconds
-      setTimeout(() => {
-        setStatus((prev) => ({ ...prev, submitted: false }));
-      }, 6000);
-    }, 1000);
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          _subject: `New portfolio message from ${formData.name}`,
+          _template: "table",
+          Name: formData.name,
+          Email: formData.email,
+          Subject: formData.subject || "Portfolio contact form",
+          Message: formData.message,
+        }),
+      });
+
+      if (!response.ok) throw new Error("FormSubmit request failed");
+
+      setStatus({ submitting: false, submitted: true, error: null, channel: "inbox" });
+      setFormData(emptyForm);
+    } catch {
+      // Fallback so the message is never lost: hand it to the visitor's mail app.
+      const subject = encodeURIComponent(
+        formData.subject || `Portfolio message from ${formData.name}`,
+      );
+      const body = encodeURIComponent(
+        `${formData.message}\n\n— ${formData.name}\n${formData.email}`,
+      );
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      setStatus({ submitting: false, submitted: true, error: null, channel: "email-app" });
+      setFormData(emptyForm);
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+
+    // Auto-hide the toast after 7 seconds
+    window.setTimeout(() => {
+      setStatus((prev) => ({ ...prev, submitted: false }));
+    }, 7000);
   };
 
   return (
     <section id="contact" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      {/* Golden success toast — portalled to <body>: the contact section carries a
+          transform (reveal animation) which would otherwise trap position: fixed. */}
+      {createPortal(
+        status.submitted ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className="contact-toast fixed top-24 right-4 sm:right-6 z-[70] w-[calc(100%-2rem)] sm:w-auto sm:max-w-md p-4 rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 text-amber-950 shadow-[0_20px_45px_rgba(245,158,11,0.35)] flex items-start gap-3"
+        >
+          <HiOutlineCheckCircle className="text-2xl text-amber-900 shrink-0 mt-0.5" />
+          <div className="min-w-0">
+            <p className="text-sm font-extrabold tracking-tight">
+              {status.channel === "email-app"
+                ? "Your email app is opening…"
+                : "Message sent to my inbox!"}
+            </p>
+            <p className="text-xs font-medium text-amber-900/85 mt-0.5 leading-relaxed">
+              {status.channel === "email-app"
+                ? `The message is ready in your mail app — press Send and it lands at ${CONTACT_EMAIL}.`
+                : `It just reached ${CONTACT_EMAIL}. Thanks for reaching out — I'll reply as soon as I can.`}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setStatus((prev) => ({ ...prev, submitted: false }))}
+            aria-label="Dismiss notification"
+            className="ml-auto shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-amber-900/60 hover:text-amber-950 hover:bg-amber-950/10 transition cursor-pointer"
+          >
+            <HiX className="text-base" />
+          </button>
+        </div>
+        ) : null,
+        document.body,
+      )}
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-xs font-semibold uppercase tracking-wider">
@@ -67,7 +140,7 @@ const Contact = () => {
         </h2>
 
         <p className="text-base sm:text-lg text-gray-600">
-          Have a junior full-stack opportunity, project idea, or simply want to chat about tech? My inbox is open.
+          Have an internship or junior full-stack opportunity, project idea, or simply want to chat about tech? My inbox is open.
         </p>
       </div>
 
@@ -79,7 +152,7 @@ const Contact = () => {
               Contact Information
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              I am open to junior full-stack developer opportunities and ready to grow with a collaborative team.
+              I am open to internship and junior full-stack developer opportunities and ready to grow with a collaborative team.
             </p>
 
             <div className="space-y-4 pt-2">
@@ -183,18 +256,7 @@ const Contact = () => {
               Fill out the form below and I'll respond as soon as possible.
             </p>
 
-            {/* Success Toast */}
-            {status.submitted && (
-              <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center gap-3">
-                <HiOutlineCheckCircle className="text-2xl text-emerald-600 shrink-0" />
-                <div>
-                  <p className="text-sm font-bold">Message sent successfully!</p>
-                  <p className="text-xs text-emerald-700">
-                    Thank you for reaching out. I'll get back to you shortly.
-                  </p>
-                </div>
-              </div>
-            )}
+            {/* Success feedback is shown as a golden toast (fixed, top-right) */}
 
             {/* Error Message */}
             {status.error && (
