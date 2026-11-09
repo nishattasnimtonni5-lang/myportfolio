@@ -821,8 +821,7 @@ body {
 	margin-top: 1.55rem;
 }
 
-.hero-primary-action,
-.hero-secondary-action {
+.hero-primary-action {
 	display: inline-flex;
 	min-height: 2.9rem;
 	align-items: center;
@@ -847,72 +846,9 @@ body {
 	color: #16150f;
 }
 
-.hero-secondary-action {
-	border: 1px solid rgb(209 219 231 / 18%);
-	background: rgb(17 24 34 / 58%);
-	color: #e3e8ef;
-}
-
-.hero-primary-action:hover,
-.hero-secondary-action:hover {
-	transform: translateY(-2px);
-}
-
 .hero-primary-action:hover {
-	box-shadow: 0 12px 34px rgb(192 150 77 / 25%);
-}
-
-.hero-secondary-action:hover {
-	border-color: rgb(223 186 118 / 55%);
-	background: rgb(30 34 40 / 82%);
-}
-
-/* Chunky gold "Download PDF" button next to Resume */
-.hero-download-action {
-	display: inline-flex;
-	min-height: 3rem;
-	align-items: center;
-	justify-content: center;
-	gap: 0.55rem;
-	padding: 0.85rem 1.4rem;
-	border: 1px solid rgb(255 236 186 / 60%);
-	border-radius: 0.9rem;
-	background: linear-gradient(135deg, #fcd34d 0%, #f5b942 48%, #d99614 100%);
-	color: #1d1607;
-	font-weight: 800;
-	font-size: 0.9rem;
-	letter-spacing: 0.01em;
-	text-decoration: none;
-	box-shadow:
-		0 6px 0 rgb(129 84 12 / 85%),
-		0 16px 30px rgb(217 150 20 / 34%),
-		inset 0 1px 0 rgb(255 255 255 / 70%);
-	transition:
-		transform 160ms ease,
-		box-shadow 160ms ease,
-		filter 160ms ease;
-}
-
-.hero-download-action:hover {
-	filter: brightness(1.05);
 	transform: translateY(-2px);
-	box-shadow:
-		0 8px 0 rgb(129 84 12 / 88%),
-		0 20px 36px rgb(217 150 20 / 42%),
-		inset 0 1px 0 rgb(255 255 255 / 75%);
-}
-
-.hero-download-action:active {
-	transform: translateY(4px);
-	box-shadow:
-		0 2px 0 rgb(129 84 12 / 88%),
-		0 8px 18px rgb(217 150 20 / 32%),
-		inset 0 2px 0 rgb(120 82 20 / 45%);
-}
-
-.hero-download-action:focus-visible {
-	outline: 2px solid #fcd34d;
-	outline-offset: 4px;
+	box-shadow: 0 12px 34px rgb(192 150 77 / 25%);
 }
 
 .hero-contact-action {
@@ -929,7 +865,6 @@ body {
 }
 
 .hero-primary-action:focus-visible,
-.hero-secondary-action:focus-visible,
 .hero-contact-action:focus-visible {
 	outline: 2px solid #fcd34d;
 	outline-offset: 4px;

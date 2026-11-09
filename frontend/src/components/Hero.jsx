@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { HiDocumentText, HiDocumentDownload, HiArrowRight } from "react-icons/hi";
+import { HiArrowRight } from "react-icons/hi";
 import profilePhoto from "../assets/Pro.jpeg";
 
 const LightBulb = ({ className, svgRef }) => (
@@ -285,18 +284,6 @@ const Hero = () => {
               className="hero-primary-action"
             >
               Explore selected work <HiArrowRight aria-hidden="true" />
-            </a>
-            <Link to="/resume" className="hero-secondary-action">
-              <HiDocumentText aria-hidden="true" /> Resume
-            </Link>
-            <a
-              href="/resume?download=1"
-              target="_blank"
-              rel="noreferrer"
-              className="hero-download-action"
-              title="Download my resume as a PDF"
-            >
-              <HiDocumentDownload aria-hidden="true" /> Download Resume
             </a>
             <a
               href="#contact"
