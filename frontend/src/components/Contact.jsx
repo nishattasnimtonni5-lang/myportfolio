@@ -187,7 +187,7 @@ const Contact = () => {
                     Phone / WhatsApp
                   </span>
                   <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                    01916001156
+                    +8801916001156
                   </span>
                 </div>
               </a>
