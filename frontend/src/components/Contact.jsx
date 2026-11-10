@@ -176,7 +176,7 @@ const Contact = () => {
 
               {/* Phone */}
               <a
-                href=""
+                href="tel:+8801916001156"
                 className="flex items-start gap-4 p-3.5 rounded-xl bg-gray-50 hover:bg-blue-50/70 border border-gray-100 hover:border-blue-200 transition group"
               >
                 <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -187,7 +187,7 @@ const Contact = () => {
                     Phone / WhatsApp
                   </span>
                   <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                   
+                    01916001156
                   </span>
                 </div>
               </a>

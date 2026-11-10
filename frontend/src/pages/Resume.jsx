@@ -28,7 +28,6 @@ const printResumeAsPdf = () => {
 
 const Resume = () => {
   const location = useLocation();
-  const handleDownload = printResumeAsPdf;
 
   // /resume?download=1 (Hero "Download PDF" button) → auto-open save-as-PDF dialog
   useEffect(() => {
@@ -47,13 +46,14 @@ const Resume = () => {
           <HiArrowLeft className="text-base" /> Back to Portfolio
         </Link>
 
-        <button
-          onClick={handleDownload}
-          title="Download this resume as a PDF"
+        <a
+          href="/resume.pdf"
+          download="Nishat-Tasnim-Tonni-Resume.pdf"
+          title="Download the resume PDF"
           className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-5 py-2.5 rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition cursor-pointer"
         >
           <HiDocumentDownload className="text-base" /> Download PDF
-        </button>
+        </a>
       </div>
 
       <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-[0_25px_80px_rgba(15,23,42,0.12)] border border-slate-200 overflow-hidden print:shadow-none print:border-none print:rounded-none">
@@ -84,9 +84,9 @@ const Resume = () => {
                 <HiMail className="text-base text-blue-200" />
                 <span className="truncate">nishattasnimtonni5@gmail.com</span>
               </a>
-              <a href="" className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 hover:bg-white/10 transition">
+              <a href="tel:+8801916001156" className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 hover:bg-white/10 transition">
                 <HiPhone className="text-base text-blue-200" />
-                <span></span>
+                <span>01916001156</span>
               </a>
               <div className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2">
                 <HiLocationMarker className="text-base text-blue-200" />

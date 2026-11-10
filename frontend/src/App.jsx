@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
 import Resume from './pages/Resume';
+import ResumePreview from './pages/ResumePreview';
 
 // Route change-এ নতুন page সবসময় উপর থেকে শুরু হোক — নাহলে browser আগের
 // scroll position (যেমন home-এর projects section) ধরে রেখে detail page-এর
@@ -39,6 +40,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/projects/:id" element={<ProjectDetails />} />
             <Route path="/resume" element={<Resume />} />
+            <Route path="/resume-preview" element={<ResumePreview />} />
           </Routes>
         </div>
         <Footer />

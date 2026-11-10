@@ -1,8 +1,44 @@
 import bazarDorImage from "../assets/projects/bazar-dor-overview.png";
 import assignmentFiveImage from "../assets/projects/assignment-5-overview.png";
 import fitlogImage from "../assets/projects/fitlog-overview.png";
+import studioSpaceImage from "../assets/projects/studiospace-overview.jpg";
 
 const projects = [
+  {
+    id: 4,
+    title: "StudioSpace",
+    category: "Creative studio booking marketplace",
+    description:
+      "A marketplace where hosts list their creative studios and clients explore, compare, and book photography, podcast, music, and production spaces.",
+    live: "https://b-14-a-08-client.vercel.app/",
+    github: "https://github.com/nishattasnimtonni5-lang/b-14-a-08-client",
+    technologies: [
+      "Next.js 16 (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "shadcn/ui + Base UI",
+      "Better Auth (MongoDB adapter)",
+      "Express 5 API",
+      "MongoDB",
+      "react-hook-form + Zod",
+      "Recharts",
+    ],
+    challenges: [
+      "Modelling studios, listings, and bookings so hosts could manage their own spaces without breaking other people's reservations.",
+      "Wiring Better Auth across the separate client and server apps with JWT-protected routes for guests and hosts.",
+      "Building a booking flow with react-hook-form and Zod validation that stays fast and usable on mobile.",
+      "Keeping search, category filters, dashboards, and charts consistent on one design system built with shadcn/ui and Tailwind.",
+    ],
+    future: [
+      "Real-time availability with instant booking confirmation and calendar sync.",
+      "Secure online payments with refunds and scheduled payouts for hosts.",
+      "Reviews, ratings, and photo galleries for every studio.",
+      "Map-based discovery with booking reminders and notifications.",
+    ],
+    image: studioSpaceImage,
+    featured: true,
+  },
   {
     id: 3,
     title: "Bazar Dor",

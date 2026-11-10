@@ -255,14 +255,14 @@ const Navbar = () => {
         {/* Desktop Navigation Links */}
         <ul className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => {
-            const href = link.id === "resume" ? "/resume" : isHomePage ? `#${link.id}` : `/#${link.id}`;
+            const href = link.id === "resume" ? "/resume-preview" : isHomePage ? `#${link.id}` : `/#${link.id}`;
             const isLinkActive = active === link.id;
 
             return (
               <li key={link.id}>
                 {link.id === "resume" ? (
                   <Link
-                    to="/resume"
+                    to="/resume-preview"
                     className={`group relative py-1 font-medium text-sm transition-colors duration-200 ${
                       isLinkActive ? "text-cyan-300 font-semibold" : "text-slate-200 hover:text-cyan-300"
                     }`}
@@ -296,13 +296,14 @@ const Navbar = () => {
 
         {/* Desktop Right CTA (Download Resume) */}
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            to="/resume?download=1"
+          <a
+            href="/resume.pdf"
+            download="Nishat-Tasnim-Tonni-Resume.pdf"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-500 hover:from-blue-500 hover:to-indigo-400 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-cyan-500/20 hover:shadow-lg hover:shadow-amber-400/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
           >
             <HiDocumentDownload className="text-lg" />
             Download Resume
-          </Link>
+          </a>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -325,14 +326,14 @@ const Navbar = () => {
       >
         <ul className="flex flex-col gap-4">
           {navLinks.map((link) => {
-            const href = link.id === "resume" ? "/resume" : isHomePage ? `#${link.id}` : `/#${link.id}`;
+            const href = link.id === "resume" ? "/resume-preview" : isHomePage ? `#${link.id}` : `/#${link.id}`;
             const isLinkActive = active === link.id;
 
             return (
               <li key={link.id}>
                 {link.id === "resume" ? (
                   <Link
-                    to="/resume"
+                    to="/resume-preview"
                     onClick={closeMenu}
                     className={`relative block py-1.5 text-base font-medium transition text-slate-100 hover:text-cyan-300 ${isLinkActive ? "text-cyan-300 font-semibold" : ""}`}
                   >
@@ -357,14 +358,15 @@ const Navbar = () => {
 
           {/* Mobile Download Resume Button */}
           <li className="pt-2 border-t border-gray-100">
-            <Link
-              to="/resume?download=1"
+            <a
+              href="/resume.pdf"
+              download="Nishat-Tasnim-Tonni-Resume.pdf"
               onClick={closeMenu}
               className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-500 text-white py-3 rounded-xl font-semibold shadow hover:from-blue-500 hover:to-indigo-400 transition"
             >
               <HiDocumentDownload className="text-xl" />
               Download Resume
-            </Link>
+            </a>
           </li>
         </ul>
       </div>
